@@ -59,7 +59,7 @@ esp.NewDrawing = function(type, properties)
     end
 
     return newDrawing
-
+end
 
 esp.NewCham = function(properties)
     local newCham = Instance.new("Highlight", game.CoreGui)
@@ -114,7 +114,6 @@ esp.NewPlayer = function(v)
         weapon = esp.NewDrawing("Text", {Color = Color3fromRGB(255, 255, 255), Outline = true, Center = true, Size = 13, Font = 2}),
         cham = esp.NewCham({FillColor = esp.settings_chams.fill_color, OutlineColor = esp.settings_chams.outline_color, FillTransparency = esp.settings_chams.fill_transparency, OutlineTransparency = esp.settings_chams.outline_transparency})
     }
-    
 end
 
 for _,v in ipairs(plrs:GetPlayers()) do
@@ -147,11 +146,11 @@ ESP_Loop = rs.RenderStepped:Connect(function()
             local head = i.Character.Head
 
             local Vector, onScreen = camera:WorldToViewportPoint(i.Character.HumanoidRootPart.Position)
-
+    
             local Size = (camera:WorldToViewportPoint(hrp.Position - Vector3new(0, 3, 0)).Y - camera:WorldToViewportPoint(hrp.Position + Vector3new(0, 2.6, 0)).Y) / 2
             local BoxSize = Vector2new(mathfloor(Size * 1.5), mathfloor(Size * 1.9))
             local BoxPos = Vector2new(mathfloor(Vector.X - Size * 1.5 / 2), mathfloor(Vector.Y - Size * 1.6 / 2))
-
+    
             local BottomOffset = BoxSize.Y + BoxPos.Y + 1
 
             if onScreen and esp.settings_chams.enabled then
@@ -220,7 +219,7 @@ ESP_Loop = rs.RenderStepped:Connect(function()
                     v.boxOutline.Size = BoxSize
                     v.boxOutline.Position = BoxPos
                     v.boxOutline.Visible = esp.settings.box.outline
-
+    
                     v.box.Size = BoxSize
                     v.box.Position = BoxPos
                     v.box.Color = esp.settings.box.color
@@ -337,7 +336,7 @@ end)
 esp.Unload = function()
     ESP_Loop:Disconnect()
     ESP_Loop = nil
-
+    
     for i,v in pairs(esp.players) do
         for i2, v2 in pairs(v) do
             if v2 == "cham" then
